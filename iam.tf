@@ -124,3 +124,13 @@ resource "google_project_iam_member" "github_storageAdmin" {
   role    = "roles/storage.admin"
   member  = "serviceAccount:${google_service_account.github-wif.email}"
 }
+
+resource "google_project_iam_member" "github_workloadIdentityPoolAdmin" {
+  depends_on = [
+    google_project_service.gcp_services
+  ]
+
+  project = local.project_id
+  role    = "roles/iam.workloadIdentityPoolAdmin"
+  member  = "serviceAccount:${google_service_account.github-wif.email}"
+}
