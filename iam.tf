@@ -86,10 +86,10 @@ resource "google_project_iam_member" "github-editor" {
   ]
 
   project = var.project_id
-  role    = "roles/editor"
+  role    = "roles/iam.serviceAccountTokenCreator"
   member  = "serviceAccount:${google_service_account.github-wif.email}"
 }
-
+/*
 resource "google_project_iam_member" "github-projectIamAdmin" {
   depends_on = [
     google_service_account.github-wif
@@ -98,4 +98,4 @@ resource "google_project_iam_member" "github-projectIamAdmin" {
   project = var.project_id
   role    = "roles/resourcemanager.projectIamAdmin"
   member  = "serviceAccount:${google_service_account.github-wif.email}"
-}
+}*/
