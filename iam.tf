@@ -91,14 +91,7 @@ resource "google_project_iam_custom_role" "github_custom_permissions" {
   permissions = [
     "iam.serviceAccounts.get",
     "resourcemanager.projects.getIamPolicy",
-    "resourcemanager.projects.setIamPolicy",
-    "serviceusage.services.list",
-    "storage.buckets.get",
-    "storage.buckets.getIamPolicy",
-    "storage.objects.create",
-    "storage.objects.delete",
-    "storage.objects.get",
-    "storage.objects.list"
+    "resourcemanager.projects.setIamPolicy"
   ]
 }
 
@@ -110,4 +103,24 @@ resource "google_project_iam_binding" "github_custom_role" {
   project = local.project_id
   role    = "projects/${local.project_id}/roles/${google_project_iam_custom_role.github_custom_permissions.role_id}"
   members = ["serviceAccount:${google_service_account.github-wif.email}"]
+}
+
+resource "google_project_iam_member" "github_serviceUsageAdmin" {
+  depends_on = [
+    google_project_service.gcp_services
+  ]
+
+  project = local.project_id
+  role    = "roles/serviceusage.serviceUsageAdmin"
+  member  = "serviceAccount:${google_service_account.github-wif.email}"
+}
+
+resource "google_project_iam_member" "github_storageAdmin" {
+  depends_on = [
+    google_project_service.gcp_services
+  ]
+
+  project = local.project_id
+  role    = "roles/storage.admin"
+  member  = "serviceAccount:${google_service_account.github-wif.email}"
 }
