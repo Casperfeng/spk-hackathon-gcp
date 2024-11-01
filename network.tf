@@ -54,7 +54,7 @@ resource "google_compute_url_map" "default" {
     default_service = google_compute_backend_bucket.default.id
 
     path_rule {
-      paths   = ["/api/*"]
+      paths   = ["/api"]
       service = google_compute_backend_service.run-backend-srv.id
     }
   }

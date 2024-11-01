@@ -9,7 +9,15 @@ app = Flask(__name__)
 @app.route("/",methods=['GET','POST'])
 def index():
     if request.method=='GET':
-        return jsonify({"message": "Api served from a Flask app in Cloud Run"})
+        return jsonify({"message": "Api served from a Flask app in Cloud Run, path '/'"})
+    else:
+        return jsonify({'Error':"This is a GET API method"})
+
+
+@app.route("/api",methods=['GET','POST'])
+def api():
+    if request.method=='GET':
+        return jsonify({"message": "Api served from a Flask app in Cloud Run, path '/api'"})
     else:
         return jsonify({'Error':"This is a GET API method"})
 
