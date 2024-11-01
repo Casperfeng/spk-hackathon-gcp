@@ -6,19 +6,6 @@ Simple exmaple showing how one can build and deploy an application in Cloud Run 
 ![](img/0.png)
 
 
-## Project structure
-```
-
-.
-├── config.tf
-├── iam.tf
-├── install.sh
-├── README.md
-├── terraform.tfvars.json
-└── vars.tf
-
-```
-
 ## Setup
 
 1. Replace the the project ID. number and default region with your project details under `terraform.tfvars.json`
@@ -53,6 +40,3 @@ git add .
 git commit -m '<YOUR_COMMIT_MESSAGE>'
 git push
 ```
-
-
-![](img/1.png)
