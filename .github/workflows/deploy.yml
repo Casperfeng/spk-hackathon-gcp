@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
 
 env:
-  PROJECT_ID: 'jeremy-4wbqqfa'
+  PROJECT_ID: 'jeremy-4wbqqfav'
   PROJECT_NMR: 157769428517
   REGION: 'europe-west1'
 
