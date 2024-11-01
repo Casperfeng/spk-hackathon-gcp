@@ -80,43 +80,6 @@ resource "google_service_account_iam_binding" "iam-workloadIdentityUser" {
   ]
 }
 
-resource "google_project_iam_custom_role" "github_custom_permissions" {
-  depends_on = [
-    google_service_account.github-wif
-  ]
-
-  role_id = "github_actions_role" # Choose a unique role ID
-  project = var.project_id
-  title   = "Github actions Custom Role"
-  permissions = [
-    "iam.roles.get",
-    "iam.serviceAccounts.get",
-    "iam.serviceAccounts.getIamPolicy",
-    "resourcemanager.projects.getIamPolicy",
-    "resourcemanager.projects.setIamPolicy"
-  ]
-}
-
-resource "google_project_iam_binding" "github_custom_role" {
-  depends_on = [
-    google_service_account.github-wif
-  ]
-
-  project = local.project_id
-  role    = "projects/${local.project_id}/roles/${google_project_iam_custom_role.github_custom_permissions.role_id}"
-  members = ["serviceAccount:${google_service_account.github-wif.email}"]
-}
-
-resource "google_project_iam_member" "github_serviceUsageAdmin" {
-  depends_on = [
-    google_project_service.gcp_services
-  ]
-
-  project = local.project_id
-  role    = "roles/serviceusage.serviceUsageAdmin"
-  member  = "serviceAccount:${google_service_account.github-wif.email}"
-}
-
 resource "google_project_iam_member" "github_storageAdmin" {
   depends_on = [
     google_project_service.gcp_services
@@ -124,25 +87,5 @@ resource "google_project_iam_member" "github_storageAdmin" {
 
   project = local.project_id
   role    = "roles/storage.admin"
-  member  = "serviceAccount:${google_service_account.github-wif.email}"
-}
-
-resource "google_project_iam_member" "github_workloadIdentityPoolAdmin" {
-  depends_on = [
-    google_project_service.gcp_services
-  ]
-
-  project = local.project_id
-  role    = "roles/iam.workloadIdentityPoolAdmin"
-  member  = "serviceAccount:${google_service_account.github-wif.email}"
-}
-
-resource "google_project_iam_member" "github_loadBalancerAdmin" {
-  depends_on = [
-    google_project_service.gcp_services
-  ]
-
-  project = local.project_id
-  role    = "roles/compute.loadBalancerAdmin"
   member  = "serviceAccount:${google_service_account.github-wif.email}"
 }

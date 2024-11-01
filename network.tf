@@ -43,6 +43,21 @@ resource "google_compute_url_map" "default" {
   project         = local.project_id
   name            = "http-lb"
   default_service = google_compute_backend_bucket.default.id
+
+  host_rule {
+    hosts        = ["*"]
+    path_matcher = "static"
+  }
+  
+  path_matcher {
+    name            = "static"
+    default_service = google_compute_backend_bucket.default.id
+
+   /* path_rule {
+      paths   = ["/app/*"]
+      service = google_compute_backend_bucket.bucket_2.id
+    }*/
+  }
 }
 
 # backend bucket with CDN policy with default ttl settings
