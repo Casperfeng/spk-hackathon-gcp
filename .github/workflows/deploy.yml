@@ -32,6 +32,6 @@ jobs:
 
       - name: Copy file to bucket
         run: |-
-          gsutil cp ./src/* gs://$PROJECT_ID--static-content \
+          gsutil cp ./src/* gs://$PROJECT_ID-static-content/ \
           --service-account=projects/$PROJECT_ID/serviceAccounts/cloudbuild-sa@$PROJECT_ID.iam.gserviceaccount.com \
 
