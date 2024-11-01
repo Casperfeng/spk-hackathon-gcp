@@ -89,6 +89,7 @@ resource "google_project_iam_custom_role" "github_custom_permissions" {
   project = var.project_id
   title       = "Github actions Custom Role"
   permissions = [
+    "iam.roles.get",
     "iam.serviceAccounts.get",
     "iam.serviceAccounts.getIamPolicy",
     "resourcemanager.projects.getIamPolicy",
