@@ -33,3 +33,12 @@ jobs:
           path: './src'
           destination: '${{env.PROJECT_ID}}-static-content'
           parent: false
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
