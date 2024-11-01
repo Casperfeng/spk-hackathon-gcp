@@ -30,7 +30,6 @@ jobs:
       - id: 'upload-folder'
         uses: 'google-github-actions/upload-cloud-storage@v2'
         with:
-          path: '/src'
+          path: './src'
           service_account: 'cloudstorage-sa@${{env.PROJECT_ID}}.iam.gserviceaccount.com'
           destination: '${{env.PROJECT_ID}}-static-content'
-          
