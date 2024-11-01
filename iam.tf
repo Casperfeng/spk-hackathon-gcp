@@ -85,9 +85,9 @@ resource "google_project_iam_custom_role" "github_custom_permissions" {
     google_service_account.github-wif
   ]
 
-  role_id     = "github_actions_role"  # Choose a unique role ID
+  role_id = "github_actions_role" # Choose a unique role ID
   project = var.project_id
-  title       = "Github actions Custom Role"
+  title   = "Github actions Custom Role"
   permissions = [
     "iam.roles.get",
     "iam.serviceAccounts.get",
