@@ -7,7 +7,6 @@
 
 # local variables files
 .terraform.lock.hcl
-terraform.tfvars.json
 
 # Crash log files
 crash.log
