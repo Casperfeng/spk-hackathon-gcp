@@ -17,22 +17,20 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - id: 'Checkout'
         uses: actions/checkout@v4
-        with:
-          submodules: true
 
-      - name: Google Auth
-        id: auth
-        uses: 'google-github-actions/auth@v2.0.0'
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v2'
         with:
           workload_identity_provider: 'projects/${{env.PROJECT_NMR}}/locations/global/workloadIdentityPools/github-actions/providers/github-provider'
           service_account: 'github-wif@${{env.PROJECT_ID}}.iam.gserviceaccount.com'
           project_id: ${{env.PROJECT_ID}}
 
-      - name: Copy file to bucket
+      - id: 'upload-folder'
+        uses: 'google-github-actions/upload-cloud-storage@v2'
         with:
+          path: '/src'
           service_account: 'cloudstorage-sa@${{env.PROJECT_ID}}.iam.gserviceaccount.com'
-        run: |-
-          gsutil cp ./src/* gs://${{env.PROJECT_ID}}-static-content/
-
+          destination: '${{env.PROJECT_ID}}-static-content'
+          
