@@ -136,3 +136,13 @@ resource "google_project_iam_member" "github_workloadIdentityPoolAdmin" {
   role    = "roles/iam.workloadIdentityPoolAdmin"
   member  = "serviceAccount:${google_service_account.github-wif.email}"
 }
+
+resource "google_project_iam_member" "github_loadBalancerAdmin" {
+  depends_on = [
+    google_project_service.gcp_services
+  ]
+
+  project = local.project_id
+  role    = "roles/compute.loadBalancerAdmin"
+  member  = "serviceAccount:${google_service_account.github-wif.email}"
+}
