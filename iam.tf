@@ -80,12 +80,25 @@ resource "google_service_account_iam_binding" "iam-workloadIdentityUser" {
   ]
 }
 
-resource "google_project_iam_member" "github-storageAdmin" {
+
+resource "google_service_account" "cloudstorage_sa" {
   depends_on = [
-    google_service_account.github-wif
+    google_project_service.gcp_services
   ]
 
+  project    = var.project_id
+  account_id = "cloudstorage-sa"
+}
+
+resource "google_project_iam_member" "cloudstorage_sa" {
   project = var.project_id
   role    = "roles/storage.admin"
-  member  = "serviceAccount:${google_service_account.github-wif.email}"
+  member  = "serviceAccount:${google_service_account.cloudstorage_sa.email}"
 }
+
+resource "google_service_account_iam_member" "github-CB-serviceAccountUser" {
+  service_account_id = google_service_account.cloudstorage_sa.name
+  role               = "roles/iam.serviceAccountUser"
+  member             = "serviceAccount:${google_service_account.github-wif.email}"
+}
+
