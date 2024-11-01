@@ -5,9 +5,11 @@ on:
     branches: [ "main" ]
 
 env:
+  APP_NAME: 'apis'
   PROJECT_ID: 'jeremy-4wbqqfav'
   PROJECT_NMR: 157769428517
   REGION: 'europe-west1'
+  REGISTRY_NAME: 'run-image'
 
 jobs:
   deploy:
@@ -33,4 +35,18 @@ jobs:
           path: './src'
           destination: '${{env.PROJECT_ID}}-static-content'
           parent: false
+      
+      - id: 'build-api-image'
+        run: |-
+          gcloud builds submit ./app \
+          --tag $REGION-docker.pkg.dev/$PROJECT_ID/$REGISTRY_NAME/$APP_NAME:$GITHUB_SHA \
+          --service-account=projects/$PROJECT_ID/serviceAccounts/cloudbuild-sa@$PROJECT_ID.iam.gserviceaccount.com \
+          --default-buckets-behavior=REGIONAL_USER_OWNED_BUCKET
+
+      - id: 'deploy-api-image'
+        run: |-
+          gcloud run deploy $APP_NAME \
+          --region $REGION \
+          --image $REGION-docker.pkg.dev/$PROJECT_ID/$REGISTRY_NAME/$APP_NAME:$GITHUB_SHA \
+          --service-account=cloudrun-sa@$PROJECT_ID.iam.gserviceaccount.com
 

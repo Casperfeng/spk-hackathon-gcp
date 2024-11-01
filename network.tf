@@ -48,15 +48,15 @@ resource "google_compute_url_map" "default" {
     hosts        = ["*"]
     path_matcher = "static"
   }
-  
+
   path_matcher {
     name            = "static"
     default_service = google_compute_backend_bucket.default.id
 
-   /* path_rule {
-      paths   = ["/app/*"]
-      service = google_compute_backend_bucket.bucket_2.id
-    }*/
+    path_rule {
+      paths   = ["/api/*"]
+      service = google_compute_backend_service.run-backend-srv.id
+    }
   }
 }
 

@@ -18,3 +18,8 @@ variable "public_bucket_name" {
   type    = string
   default = "static-content"
 }
+
+variable "default_run_image" {
+  type    = string
+  default = "nginx:latest"
+}

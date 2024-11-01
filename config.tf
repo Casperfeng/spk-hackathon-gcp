@@ -22,10 +22,13 @@ locals {
   github_repo            = var.github_repo
   public_bucket_name     = var.public_bucket_name
   gcp_service_list = [
+    "artifactregistry.googleapis.com",
+    "cloudbuild.googleapis.com",
     "cloudresourcemanager.googleapis.com",
     "iam.googleapis.com",
     "iamcredentials.googleapis.com",
     "secretmanager.googleapis.com",
+    "run.googleapis.com",
     "serviceusage.googleapis.com"
   ]
 }
