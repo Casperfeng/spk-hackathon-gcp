@@ -91,6 +91,7 @@ resource "google_project_iam_custom_role" "github_custom_permissions" {
   permissions = [
     "iam.serviceAccounts.get",
     "serviceusage.services.list",
+    "storage.objects.create",
     "storage.objects.get",
     "storage.objects.list"
   ]
