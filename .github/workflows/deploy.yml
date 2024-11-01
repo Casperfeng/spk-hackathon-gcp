@@ -1,0 +1,35 @@
+name: Build and Deploy to Cloud Run
+
+on:
+  push:
+    branches: [ "main" ]
+
+env:
+  PROJECT_ID: 'jeremy-4wbqqfa'
+  PROJECT_NMR: 157769428517
+  REGION: 'europe-west1'
+
+jobs:
+  deploy:
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Google Auth
+        id: auth
+        uses: 'google-github-actions/auth@v2.0.0'
+        with:
+          workload_identity_provider: 'projects/${{env.PROJECT_NMR}}/locations/global/workloadIdentityPools/github-actions/providers/github-provider'
+          service_account: 'github-wif@${{env.PROJECT_ID}}.iam.gserviceaccount.com'
+          project_id: ${{env.PROJECT_ID}}
+
+      - name: Copy file to bucket
+        run: |-
+          gsutil cp ./src/* gs://$PROJECT_ID--static-content \
+          --service-account=projects/$PROJECT_ID/serviceAccounts/cloudbuild-sa@$PROJECT_ID.iam.gserviceaccount.com \
+
