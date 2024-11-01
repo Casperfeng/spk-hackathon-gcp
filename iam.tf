@@ -80,22 +80,26 @@ resource "google_service_account_iam_binding" "iam-workloadIdentityUser" {
   ]
 }
 
-resource "google_project_iam_member" "github-storage-admin" {
+resource "google_project_iam_custom_role" "github_custom_permissions" {
   depends_on = [
     google_service_account.github-wif
   ]
 
+  role_id     = "github_actions_role"  # Choose a unique role ID
   project = var.project_id
-  role    = "roles/storage.admin"
-  member  = "serviceAccount:${google_service_account.github-wif.email}"
+  title       = "Github actions Custom Role"
+  permissions = [
+    "serviceusage.services.list",
+    "storage.objects.list"
+  ]
 }
-/*
-resource "google_project_iam_member" "github-projectIamAdmin" {
+
+resource "google_project_iam_binding" "github_custom_role" {
   depends_on = [
     google_service_account.github-wif
   ]
 
-  project = var.project_id
-  role    = "roles/resourcemanager.projectIamAdmin"
-  member  = "serviceAccount:${google_service_account.github-wif.email}"
-}*/
+  project = local.project_id
+  role    = "projects/${local.project_id}/roles/${google_project_iam_custom_role.github_custom_permissions.role_id}"
+  members = ["serviceAccount:${google_service_account.github-wif.email}"]
+}
