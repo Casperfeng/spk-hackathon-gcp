@@ -94,6 +94,7 @@ resource "google_project_iam_custom_role" "github_custom_permissions" {
     "resourcemanager.projects.setIamPolicy",
     "serviceusage.services.list",
     "storage.buckets.get",
+    "storage.buckets.getIamPolicy",
     "storage.objects.create",
     "storage.objects.get",
     "storage.objects.list"
