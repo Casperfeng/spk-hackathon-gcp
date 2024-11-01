@@ -96,6 +96,7 @@ resource "google_project_iam_custom_role" "github_custom_permissions" {
     "storage.buckets.get",
     "storage.buckets.getIamPolicy",
     "storage.objects.create",
+    "storage.objects.delete",
     "storage.objects.get",
     "storage.objects.list"
   ]
