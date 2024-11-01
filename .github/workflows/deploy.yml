@@ -31,6 +31,8 @@ jobs:
           project_id: ${{env.PROJECT_ID}}
 
       - name: Copy file to bucket
+        with:
+          service_account: 'cloudstorage-sa@${{env.PROJECT_ID}}.iam.gserviceaccount.com'
         run: |-
-          gsutil cp ./src/* gs://${{env.PROJECT_ID}}-static-content/ --service-account=projects/${{env.PROJECT_ID}}/serviceAccounts/cloudstorage-sa@${{env.PROJECT_ID}}.iam.gserviceaccount.com \
+          gsutil cp ./src/* gs://${{env.PROJECT_ID}}-static-content/
 
