@@ -32,5 +32,4 @@ override.tf.json
 # example: *tfplan*
 
 cmds.txt
-**/node_modules/*terraform.tfvars.json
 git-filter-repo
