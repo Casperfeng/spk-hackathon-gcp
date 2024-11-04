@@ -44,7 +44,7 @@ terraform {
   required_version = ">= 1.8.0"
 
   backend "gcs" {
-    bucket = "jeremy-4wbqqfav-terraform-state"
+    bucket = "<PROJECT_ID>-terraform-state"
     prefix = "terraform/state"
   }
 

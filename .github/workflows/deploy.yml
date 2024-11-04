@@ -6,9 +6,9 @@ on:
 
 env:
   APP_NAME: 'apis'
-  PROJECT_ID: 'jeremy-4wbqqfav'
-  PROJECT_NMR: 157769428517
-  REGION: 'europe-west1'
+  PROJECT_ID: '<PROJECT_ID>'
+  PROJECT_NMR: <PROJECT_NMR>
+  REGION: '<DEFAULT_REGION>'
   REGISTRY_NAME: 'run-image'
 
 jobs:

@@ -8,13 +8,13 @@ Simple exmaple showing how one can build and deploy an application in Cloud Run 
 
 ## Setup
 
-1. Replace the the project ID. number and default region with your project details under `terraform.tfvars.json`
+1. Replace the the project ID. number and default region with your project details under `terraform.tfvars.json`, `config.tf` and `.github/workflows/deploy.yml`
 
 ## Install
 
 1. Run the following command at the root of the folder:
 ```shell 
-$ sudo ./install.sh
+$ ./install.sh
 $ terraform init
 $ terraform plan
 $ terraform apply
